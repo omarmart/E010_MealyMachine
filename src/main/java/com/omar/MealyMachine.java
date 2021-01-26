@@ -1,10 +1,12 @@
 package com.omar;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class MealyMachine {
-    private MealyConfig mealyConfig;
+    private List<Node> nodes;
+    private List<Character> symbols;
+    private Node initialNode;
+    private Node finalNode;
     private Node currentNode;
 
     public MealyMachine(String configPath) {
@@ -15,8 +17,8 @@ public class MealyMachine {
      * Reads a Mealy machine config file to load the configuration
      */
     private void initializeMachine(String path) {
-        mealyConfig.loadFile(path);
-        currentNode = mealyConfig.getInitialNode();
+        loadFile(path);
+        currentNode = initialNode;
     }
 
     /**
@@ -24,7 +26,6 @@ public class MealyMachine {
      * @param input the input that will be checked
      */
     public boolean validateString(String input) {
-        List<Character> symbols = mealyConfig.getSymbols();
         for (Character symbol : input.toCharArray()) {
             if (symbols.contains(symbol)) {
                 currentNode = currentNode.getTargetNode(symbol);
@@ -33,10 +34,16 @@ public class MealyMachine {
             }
         }
 
-        return currentNode.getName().equals(mealyConfig.getFinalNode().getName());
+        return currentNode.getName().equals(finalNode.getName());
     }
 
     public List<Character> getSymbols() {
-        return mealyConfig.getSymbols();
+        return symbols;
+    }
+
+    public void loadFile(String path) {
+        //TODO
+        //comprobar buen formato
+        //comprobar que los nodos, simbolos, etc coincidan con el abecedario
     }
 }
