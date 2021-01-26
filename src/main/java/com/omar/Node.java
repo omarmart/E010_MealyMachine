@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class Node {
     private String name;
-    private Map<Character, Node> transitionAlphabet;
+    private Map<Character, Node> transitionTable;
 
     public Node(String name) {
         this.name = name;
@@ -15,15 +15,15 @@ public class Node {
     }
 
     public Map<Character, Node> getAlphabet() {
-        return transitionAlphabet;
+        return transitionTable;
     }
 
     public void addTransition(Character symbol, Node targetNode) {
-        transitionAlphabet.put(symbol, targetNode);
+        transitionTable.put(symbol, targetNode);
     }
 
     public Node getTargetNode(Character symbol) {
-        return transitionAlphabet.get(symbol);
+        return transitionTable.get(symbol);
     }
 
 }
